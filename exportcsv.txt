@@ -1,0 +1,77 @@
+public String ExportCSV() {
+		
+		long starttime = System.nanoTime();
+		studentList = dao.show();
+
+		HttpServletResponse response = ServletActionContext.getResponse();
+		try {
+			
+			
+			
+			
+			
+			
+			response.setContentType("text/csv");
+			String reportName = "export.csv";
+			response.setHeader("Content-disposition", "attachment;filename=" + reportName);
+
+			ArrayList<String> rows = new ArrayList<String>();
+
+			//rows.add("Name,Email");
+			rows.add("registerName,registerEmail,pwd,name1,name2,name3,name4,name5,name6,name7,name8,name9,name10");
+			rows.add("\n");
+			for (StudentClass stud : studentList) 
+			{
+				// System.out.println("ID : "+ stud.getIncrement()+ " Name :"+ stud.getName() +
+				// " Email :"+ stud.getEmail());
+				//rows.add(stud.getRegisterName() + "," + stud.getRegisterEmail());
+				rows.add(stud.getRegisterName()+","+stud.getRegisterEmail()+","+stud.getPwd()+","+stud.getName1()+","+stud.getName2()+","+stud.getName3()+","+stud.getName4()+","+stud.getName5()+","+stud.getName6()+","+stud.getName7()+","+stud.getName8()+","+stud.getName9()+","+stud.getName10());
+				rows.add("\n");
+			}
+			Iterator<String> iter = rows.iterator();
+			while (iter.hasNext()) {
+				String outputString = (String) iter.next();
+				response.getOutputStream().print(outputString);
+			}
+			response.getOutputStream().flush();
+			long endtime = System.nanoTime();
+			System.out.println("Total Time Is "+(endtime-starttime));
+			
+			
+			
+			
+			response.setContentType("text/csv");
+			String reportName = "export.csv";
+			response.setHeader("Content-disposition", "attachment;filename=" + reportName);
+
+			ArrayList<String> rows = new ArrayList<String>();
+
+			//rows.add("Name,Email");
+			rows.add("registerName,registerEmail,pwd,name1,name2,name3,name4,name5,name6,name7,name8,name9,name10");
+			rows.add("\n");
+			for (StudentClass stud : studentList) 
+			{
+				// System.out.println("ID : "+ stud.getIncrement()+ " Name :"+ stud.getName() +
+				// " Email :"+ stud.getEmail());
+				//rows.add(stud.getRegisterName() + "," + stud.getRegisterEmail());
+				System.out.println("Full Object :"+stud[0]);
+				rows.add(stud.getRegisterName()+","+stud.getRegisterEmail()+","+stud.getPwd()+","+stud.getName1()+","+stud.getName2()+","+stud.getName3()+","+stud.getName4()+","+stud.getName5()+","+stud.getName6()+","+stud.getName7()+","+stud.getName8()+","+stud.getName9()+","+stud.getName10());
+				rows.add("\n");
+			}
+			Iterator<String> iter = rows.iterator();
+			while (iter.hasNext()) {
+				String outputString = (String) iter.next();
+				response.getOutputStream().print(outputString);
+			}
+			response.getOutputStream().flush();
+			long endtime = System.nanoTime();
+			System.out.println("Total Time Is "+(endtime-starttime));
+			
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println("Erorr In Export Data");
+		}
+		return SUCCESS;
+	}
